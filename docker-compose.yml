@@ -32,8 +32,10 @@ services:
       MODE: standalone
       SPRING_DATASOURCE_PLATFORM: ""
       NACOS_AUTH_ENABLE: "false"
+      # 规避 Docker cgroup v2 下旧版 JDK 读取容器指标时的 NPE，导致反复重启
+      JAVA_OPT: "-XX:-UseContainerSupport"
       JVM_XMS: 256m
-      JVM_XMX: 256m
+      JVM_XMX: 512m
     ports:
       - "8848:8848"
       - "9848:9848"

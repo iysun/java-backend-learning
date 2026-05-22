@@ -161,6 +161,12 @@ curl -X DELETE http://127.0.0.1:8080/api/users/1
 
 ## 常见问题
 
+**Q: Nacos 控制台打不开 / 容器反复重启**
+
+- 执行 `docker logs learning-nacos`，若日志含 `CgroupV2Subsystem` 或 Derby 相关 `NullPointerException`，多为 Docker cgroup v2 与镜像内旧版 JDK 不兼容
+- 本项目已在 `docker-compose.yml` 中为 Nacos 设置 `JAVA_OPT=-XX:-UseContainerSupport`，修改后请执行：`docker compose up -d nacos`
+- 控制台地址：http://127.0.0.1:8848/nacos （默认账号密码均为 `nacos/nacos`，当前配置为关闭鉴权可直接进）
+
 **Q: Dubbo 调用失败 / 503**
 
 - 确认 `learning-service` 已启动且 Nacos 正常运行
